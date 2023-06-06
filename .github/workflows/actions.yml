@@ -1,42 +1,16 @@
-name: run main.py
+name: Run Action Every 2 Minutes
 
 on:
   schedule:
-    - cron: '* * * * *' # every minute
+    - cron: "*/2 * * * *"
 
 jobs:
-  build:
+  run:
     runs-on: ubuntu-latest
     steps:
-
-      - name: checkout repo content
-        uses: actions/checkout@v2 # checkout the repository content to github runner
-
-      - name: setup python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
         with:
-          python-version: '3.9' # install the python version needed
-          
-      - name: install python packages
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          
-      - name: execute py script # run main.py
-        env:
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-        run: python main.py
-          
-      - name: commit files
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A
-          git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
-          
-      - name: push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main 
+          python-version: 3.8
+      - run: python3 -m pip install -r requirements.txt
+      - run: python3 main.py
