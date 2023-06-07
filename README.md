@@ -1,13 +1,14 @@
 <img width="500" alt="meme" src="https://github.com/tejxv/spotify-monthly-saves/assets/54097365/2012bdbe-cab7-48d8-98e2-cd4aaf370742">
 
-## Spotify Monthly Saves
+# Spotify Monthly Saves
 Add saved songs to a monthly playlist using GitHub Actions.
 
 ### 🧐 What is this?
-![results](https://github.com/tejxv/spotify-monthly-saves/assets/54097365/3e18937d-5937-4f3d-bf00-64c7380eb61d)
+The songs you add to your library or give a like to will be included in a monthly playlist (e.g., "Jun '23"), enabling you to revisit and discover the songs you liked 7 months ago during a memorable road trip.
 
-The songs you add to your library or give a like to will be included in a monthly playlist (e.g., "Jun '23"), enabling you to revisit and discover the songs you liked 7 months ago 
-during a memorable road trip.
+Like this:
+
+![results](https://github.com/tejxv/spotify-monthly-saves/assets/54097365/3e18937d-5937-4f3d-bf00-64c7380eb61d)
 
 ### 🗿 Why not [IFTTT](https://ifttt.com/applets/rC5QtGu6-add-saved-songs-to-a-monthly-playlist)?
 I have been using that for years, but recently they paywalled it. 🥲
@@ -29,3 +30,5 @@ I have been using that for years, but recently they paywalled it. 🥲
 4. One by one, add both of the keys here by clicking on ``New repository secret``
 5. Like a song and it should get added to a new monthly playlist.
 6. Profit?
+### 💰 Is this FREE?
+Yes.
