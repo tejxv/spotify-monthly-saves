@@ -1,7 +1,7 @@
 <img width="500" alt="meme" src="https://github.com/tejxv/spotify-monthly-saves/assets/54097365/2012bdbe-cab7-48d8-98e2-cd4aaf370742">
 
 # Spotify Monthly Saves
-Add saved songs to a monthly playlist using GitHub Actions.
+Add saved songs to a monthly playlist using GitHub Actions, ditching IFTTT.
 
 ### 🧐 What is this?
 The songs you add to your library or give a like to will be included in a monthly playlist (e.g., "Jun '23"), enabling you to revisit and discover the songs you liked 7 months ago during a memorable road trip.
