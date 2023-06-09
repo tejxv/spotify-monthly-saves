@@ -8,7 +8,8 @@ The songs you add to your library or give a like to will be included in a monthl
 
 Like this:
 
-![results](https://github.com/tejxv/spotify-monthly-saves/assets/54097365/3e18937d-5937-4f3d-bf00-64c7380eb61d)
+<img width="280" alt="results" src="https://github.com/tejxv/spotify-monthly-saves/assets/54097365/3e18937d-5937-4f3d-bf00-64c7380eb61d">
+
 
 ### 🗿 Why not [IFTTT](https://ifttt.com/applets/rC5QtGu6-add-saved-songs-to-a-monthly-playlist)?
 I have been using that for years, but recently they paywalled it. 🥲
@@ -21,12 +22,13 @@ I have been using that for years, but recently they paywalled it. 🥲
 
 
 ### ⚙️ How do I set it up?
+0. Make a GitHub account if you don't have it already.
 1. Fork this repository.
 2. Get your ``client_id`` and ``client_secret`` from [developer.spotify.com](https://developer.spotify.com/)
     - Create new app by pressing [create app](https://developer.spotify.com/dashboard/create) button.
-    - Give it a name, description and type ``http://localhost:3000`` in Redirect URI then click save.
-    - Open the settings of the app and copy the ``client_id`` and ``client_secret``.
-3. Open forked repo's settings tab > Secrets and variables > Actions.
+    - Give it a name, description (you can type anything random) and type ``http://localhost:3000`` in Redirect URI then click save.
+    - Open the settings of the app and copy the ``client_id`` and ``client_secret`` to notepad, you'll need these for the next step. 
+3. Go to forked repo's ```settings``` tab > ```Secrets and variables``` > ```Actions```
 4. One by one, add both of the keys here by clicking on ``New repository secret``
 5. Like a song and it should get added to a new monthly playlist.
 6. Profit?
