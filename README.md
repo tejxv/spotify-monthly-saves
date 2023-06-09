@@ -22,15 +22,54 @@ I have been using that for years, but recently they paywalled it. 🥲
 
 
 ### ⚙️ How do I set it up?
-0. Make a GitHub account if you don't have it already.
-1. Fork this repository.
-2. Get your ``client_id`` and ``client_secret`` from [developer.spotify.com](https://developer.spotify.com/)
-    - Create new app by pressing [create app](https://developer.spotify.com/dashboard/create) button.
-    - Give it a name, description (you can type anything random) and type ``http://localhost:3000`` in Redirect URI then click save.
-    - Open the settings of the app and copy the ``client_id`` and ``client_secret`` to notepad, you'll need these for the next step. 
-3. Go to forked repo's ```settings``` tab > ```Secrets and variables``` > ```Actions```
-4. One by one, add both of the keys here by clicking on ``New repository secret``
-5. Like a song and it should get added to a new monthly playlist.
-6. Profit?
+
+To set up the repository and configure the necessary steps, follow these instructions:
+
+0. Make sure you have a GitHub account. If you don't have one, create an account at [github.com](https://github.com/).
+
+1. Fork this repository by clicking the "Fork" button at the top right of the repository page. This will create a copy of the repository under your GitHub account.
+
+2. Obtain your `client_id` and `client_secret` from the Spotify Developer Dashboard:
+
+   - Visit [developer.spotify.com](https://developer.spotify.com/) and log in with your Spotify account.
+   - Create a new app by clicking the "Create App" button.
+   - Provide a name and description for your app (you can use any name and description).
+   - In the Redirect URI field, enter `http://localhost:3000` and click "Save".
+   - Open the settings of your app and copy the `client_id` and `client_secret` to a notepad or any text editor. You will need these in the next steps.
+
+3. Before proceeding, make sure you have run the `main.py` file locally with your `client_id` and `client_secret` to authenticate your secret credentials. This step gives the necessary permissions to the app you created, allowing it to modify and create new playlists.
+
+4. Go to the "Settings" tab of your forked repository on GitHub, and navigate to "Secrets and variables" > "Actions".
+
+5. Add both the `client_id` and `client_secret` keys as secrets by clicking on "New repository secret" and entering the respective values.
+
+6. Next, enable the workflow under the "Actions" tab by clicking the "I understand my workflows, go ahead and enable them" button. This will allow the automated process to run.
+
+7. Additionally, enable the workflow under the sidebar menu called "Run main.py" by clicking the "Enable workflow" button.
+
+8. Please note that the song you like on Spotify won't be instantly added to the monthly playlist. The GitHub action runs at an interval of approximately 15 minutes, so there might be a slight delay before the song gets added.
+
+9. Once the setup is complete, you can continue to like songs on Spotify, and they will be automatically added to a new monthly playlist during the next execution of the GitHub action.
+
+10. Profit.
+
+### 🧮 Customization
+
+You have the flexibility to customize the interval at which the GitHub Action runs by modifying the `- cron:` parameter in the `.github/workflows/actions.yml` file. The interval is set using the cron syntax.
+
+Cron syntax consists of five fields representing different time units: minute, hour, day of the month, month, and day of the week. Each field can contain specific values or special characters to define the schedule.
+
+To modify the interval, locate the following line in the `.github/workflows/actions.yml` file:
+
+```yaml
+- cron: '*/15 * * * *'
+```
+> this runs every 15 minutes
+
+The `* * * * *` represents the default configuration, which executes the workflow every minute. You can change this to your desired schedule. Refer to [crontab.guru](https://crontab.guru/). It provides a simple and intuitive way to understand and create cron schedules.
+
+
 ### 💰 Is this FREE?
 Yes.
+
+
