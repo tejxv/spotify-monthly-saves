@@ -29,3 +29,6 @@ jobs:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         run: python main.py
+      
+      - name: delete .cache file
+        run: rm -rf .cache
