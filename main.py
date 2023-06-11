@@ -1,3 +1,4 @@
+import time
 import os
 from datetime import datetime
 from typing import Optional, List
@@ -214,13 +215,6 @@ class MonthlyPlaylists:
             playlist = Playlist(sp=self.sp, playlist=data)
             print(playlist.name, 'was created')
         return playlist
-
-# Put you credentials here and uncomment this block
-# spotify = MonthlyPlaylists(
-#     client_id= 'client_id_here',	
-#     client_secret= 'client_secret_here',
-#     redirect_uri='http://localhost:3000/'
-# )
 
 spotify = MonthlyPlaylists(
     client_id= os.environ["CLIENT_ID"],
