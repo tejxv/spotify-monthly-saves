@@ -25,7 +25,7 @@ I have been using that for years, but recently they paywalled it. 🥲
 
 To set up the repository and configure the necessary steps, follow these instructions:
 
-0. Make sure you have a GitHub account. If you don't have one, create an account at [github.com/signup].(https://github.com/signup)
+0. Make sure you have a GitHub account. If you don't have one, create an account at [github.com/signup](https://github.com/signup).
 
 1. Fork this repository by clicking the "Fork" button at the top right of the repository page. This will create a copy of the repository under your GitHub account.
 
@@ -40,6 +40,10 @@ To set up the repository and configure the necessary steps, follow these instruc
 
 3. Before proceeding, make sure you have run the `main.py` file locally with your `client_id` and `client_secret` to authenticate your secret credentials. This step gives the necessary permissions to the app you created, allowing it to modify and create new playlists.
 
+    - Open fork in VS Code
+    - Run ``pip install spotipy``
+    - Run the code by pressing <kbd>Control</kbd> + <kbd>Option</kbd> + <kbd>N</kbd> (<kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>N</kbd> on Windows)
+    - A window will pop up asking you to Authorise the Spotify app, click authorise.
 4. Go to the "Settings" tab of your forked repository on GitHub, and navigate to "Secrets and variables" > "Actions".
 
 5. Add both the `client_id` and `client_secret` keys as secrets by clicking on "New repository secret" and entering the respective values.
