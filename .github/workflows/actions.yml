@@ -28,10 +28,6 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         run: python main.py
       
-      - name: delete cache files
-        run: |
-          find . -name "*.cache" -type f -delete
-
           
       - name: commit files
         run: |
