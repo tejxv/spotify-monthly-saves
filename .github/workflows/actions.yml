@@ -29,9 +29,6 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         run: python main.py
       
-      - name: Remove .cache file
-        run: rm -f .cache
-      
       - name: commit files
         run: |
           git config --local user.email "action@github.com"
