@@ -25,13 +25,14 @@ I have been using that for years, but recently they paywalled it. 🥲
 
 To set up the repository and configure the necessary steps, follow these instructions:
 
-0. Make sure you have a GitHub account. If you don't have one, create an account at [github.com](https://github.com/).
+0. Make sure you have a GitHub account. If you don't have one, create an account at [github.com/signup].(https://github.com/signup)
 
 1. Fork this repository by clicking the "Fork" button at the top right of the repository page. This will create a copy of the repository under your GitHub account.
 
 2. Obtain your `client_id` and `client_secret` from the Spotify Developer Dashboard:
 
    - Visit [developer.spotify.com](https://developer.spotify.com/) and log in with your Spotify account.
+   - Navigate to your [Dashboard.](https://developer.spotify.com/dashboard)
    - Create a new app by clicking the "Create App" button.
    - Provide a name and description for your app (you can use any name and description).
    - In the Redirect URI field, enter `http://localhost:3000` and click "Save".
