@@ -216,17 +216,18 @@ class MonthlyPlaylists:
             print(playlist.name, 'was created')
         return playlist
 
-spotify = MonthlyPlaylists(
-    client_id= 'ddab83ddb038416f913f971c1317440c',	
-    client_secret= '3069de4919eb46a98674bfb511271ade',
-    redirect_uri='http://localhost:3000/'
-)
 # Put you credentials here and uncomment this block
 # spotify = MonthlyPlaylists(
-#     client_id= os.environ["CLIENT_ID"],
-#     client_secret= os.environ["CLIENT_SECRET"],
+#     client_id= 'client_id_here',	
+#     client_secret= 'client_secret_here',
 #     redirect_uri='http://localhost:3000/'
 # )
+
+spotify = MonthlyPlaylists(
+    client_id= os.environ["CLIENT_ID"],
+    client_secret= os.environ["CLIENT_SECRET"],
+    redirect_uri='http://localhost:3000/'
+)
 
 # The class updates its date threshold to whichever song it added last.
 # Therefore, calling update_monthly_playlists() multiple times will make minimal api calls
