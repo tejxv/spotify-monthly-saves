@@ -1,15 +1,13 @@
-import time
 import os
 from datetime import datetime
 from typing import Optional, List
-from spotipy import Spotify
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
 class Song:
-    """Stores relevant data for a song retrieved from spotify's API.
+    """Stores relevant data for a song retrieved from Spotify's API.
 
-    :param song: Dictionary containing playlist data from spotify's API.
+    :param song: Dictionary containing playlist data from Spotify's API.
     """
     added_at: datetime
     id: str
@@ -22,7 +20,7 @@ class Song:
         self.name = song['track']['name']
 
 class Playlist:
-    """Stores relevant data and methods for a playlist retrieved from spotify's API.
+    """Stores relevant data and methods for a playlist retrieved from Spotify's API.
 
     :param sp: Spotipy client object.
     :param playlist: Dictionary containing playlist data from Spotipy.
@@ -30,9 +28,9 @@ class Playlist:
     songs: Optional[List[Song]]
     id: str
     name: str
-    sp: Spotify
+    sp: spotipy.Spotify
 
-    def __init__(self, sp: Spotify, playlist: dict) -> None:
+    def __init__(self, sp: spotipy.Spotify, playlist: dict) -> None:
         self.sp = sp
         self.name = playlist['name']
         self.id = playlist['id']
@@ -61,7 +59,7 @@ class Playlist:
         return any(x.id == song.id for x in self.songs)
 
     def __fetch_songs(self) -> bool:
-        """Retrieves and stores the playlist's songs using spotify's api.
+        """Retrieves and stores the playlist's songs using Spotify's API.
 
         :return: True for success, False otherwise.
         """
@@ -83,7 +81,7 @@ class MonthlyPlaylists:
 
     :param client_id: Client ID for Spotify API.
     :param client_secret: Client Secret for Spotify API.
-    :param redirect_uri: Any valid URI matching the redirect URI in Spotify Developer application (optional).
+    :param redirect_uri: Any valid URI matching the redirect URI in the Spotify Developer application (optional).
     :param date: Date to detect newly saved songs after (optional).
     :param name_format: Strftime format string to name monthly playlists (optional).
     :param headless: Allows authenticating Spotify on a headless machine (optional).
@@ -97,13 +95,15 @@ class MonthlyPlaylists:
     def __init__(self, client_id: str, client_secret: str,
                  redirect_uri: str = '',
                  date: datetime = None, name_format: str = '%b \'%y', headless: bool = False) -> None:
+        cache_path = None  # Disable caching by setting cache_path to None
         self.sp = spotipy.Spotify(
             auth_manager=SpotifyOAuth(
                 client_id=client_id,
                 client_secret=client_secret,
                 redirect_uri=redirect_uri,
                 scope="user-library-read playlist-modify-private playlist-modify-public playlist-read-private",
-                open_browser=not headless
+                open_browser=not headless,
+                cache_path=cache_path  # Disable caching
             )
         )
         self.user_id = self.sp.current_user()['id']
@@ -130,8 +130,8 @@ class MonthlyPlaylists:
         self.last_checked = new_songs[0].added_at
 
     def __fetch_saved_songs(self, offset: int = 0) -> bool:
-        """Fetches and stores currently saved songs using spotify's api.
-        :param offset: Load songs from offset onwards and append to current saved_songs.
+        """Fetches and stores currently saved songs using Spotify's API.
+        :param offset: Load songs from offset onwards and append to the current saved_songs.
         :return: True for success, False otherwise.
         """
 
@@ -153,7 +153,7 @@ class MonthlyPlaylists:
         return True
 
     def __fetch_playlists(self) -> bool:
-        """Fetches and stores current playlists using spotify's api.
+        """Fetches and stores current playlists using Spotify's API.
         :return: True for success, False otherwise.
         """
 
@@ -169,12 +169,12 @@ class MonthlyPlaylists:
         return True
 
     def __fetch_new_saved_songs(self):
-        """Returns list of songs that were added after the last_date checked."""
+        """Returns a list of songs that were added after the last_date checked."""
 
         return [song for song in self.saved_songs if song.added_at > self.last_checked]
 
     def __add_songs_to_playlist(self, songs: List[Song]) -> bool:
-        """Adds songs to playlist that is named from the current month and year (Jan 22).
+        """Adds songs to the playlist that is named from the current month and year (Jan 22).
 
         :param songs: List of songs to add.
         :return: True for success, False otherwise.
@@ -202,7 +202,7 @@ class MonthlyPlaylists:
         """
 
         playlist = next((x for x in self.playlists if x.name == name), None)
-        # If playlist does not exist attempt to create it
+        # If the playlist does not exist, attempt to create it
         if playlist is None:
             try:
                 data = self.sp.user_playlist_create(
@@ -222,7 +222,14 @@ spotify = MonthlyPlaylists(
     redirect_uri='http://localhost:3000/'
 )
 
+# Put you credentials here and uncomment this block
+# spotify = MonthlyPlaylists(
+#     client_id= 'client_id goes here',
+#     client_secret= 'client_secret goes here',
+#     redirect_uri='http://localhost:3000/'
+# )
+
 # The class updates its date threshold to whichever song it added last.
-# Therefore, calling update_monthly_playlists() multiple times will make minimal api calls
+# Therefore, calling update_monthly_playlists() multiple times will make minimal API calls
 
 spotify.update_monthly_playlists()
