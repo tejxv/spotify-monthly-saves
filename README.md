@@ -41,7 +41,7 @@ To set up the repository and configure the necessary steps, follow these instruc
 3. Before proceeding, make sure you have run the `main.py` file locally with your `client_id` and `client_secret` to authenticate your secret credentials. This step gives the necessary permissions to the app you created, allowing it to modify and create new playlists.
 
     - Open fork in VS Code
-    - Delete ``.cache`` file (spotify-monthly-saves/.cache)
+    - ⚠︎ Delete ``.cache`` file (spotify-monthly-saves/.cache)
     - Run ``pip install spotipy``
     - Run the code by pressing <kbd>Control</kbd> + <kbd>Option</kbd> + <kbd>N</kbd> (<kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>N</kbd> on Windows)
     - A window will pop up asking you to Authorise the Spotify app, click authorise.
