@@ -35,17 +35,20 @@ To set up the repository and configure the necessary steps, follow these instruc
    - Navigate to your [Dashboard.](https://developer.spotify.com/dashboard)
    - Create a new app by clicking the "Create App" button.
    - Provide a name and description for your app (you can use any name and description).
-   - In the Redirect URI field, enter `http://localhost:3000` and click "Save".
+   - In the Redirect URI field, type `http://localhost:3000` and click "Save".
    - Open the settings of your app and copy the `client_id` and `client_secret` to a notepad or any text editor. You will need these in the next steps.
 
-3. Before proceeding, make sure you have run the `main.py` file locally with your `client_id` and `client_secret` to authenticate your secret credentials. This step gives the necessary permissions to the app you created, allowing it to modify and create new playlists.
+3. Before proceeding, you need to run the `main.py` file locally with your `client_id` and `client_secret` to authenticate your secret credentials. This step gives the necessary permissions to the app you created, allowing it to create new playlists and add songs to them. Just follow these steps to proceed:
 
     - Open fork in VS Code
     - ⚠︎ Delete ``.cache`` file (spotify-monthly-saves/.cache)
-    - Run ``pip install spotipy``
+    - Run ``pip install spotipy``. [Not working?](https://pip.pypa.io/en/stable/installation/)
     - Run the code by pressing <kbd>Control</kbd> + <kbd>Option</kbd> + <kbd>N</kbd> (<kbd>Control</kbd> + <kbd>Alt</kbd> + <kbd>N</kbd> on Windows)
     - A window will pop up asking you to Authorise the Spotify app, click authorise.
-4. Go to the "Settings" tab of your forked repository on GitHub, and navigate to "Secrets and variables" > "Actions".
+    - If everything goes well and if you've liked any songs on Spotify this month, you'll see something like `[month name] '23` was created and the song names will pop up in the VS Code terminal! 
+    - Now a new `.cache` file would've been generated in your project directory, open it and copy all of it's content.
+    - Go to the `.cache` file on your forked repo `(github.com/[your-username]/spotify-monthly-saves)`, click on edit and paste what you copied in the previous step, replacing the original content of the file, then click on 'Commit changes'.
+4. Go to the "Settings" tab of your forked repository on GitHub, and navigate to "Secrets and variables" → "Actions".
 
 5. Add both the `client_id` and `client_secret` keys as secrets by clicking on "New repository secret" and entering the respective values.
 
@@ -53,7 +56,7 @@ To set up the repository and configure the necessary steps, follow these instruc
 
 7. Additionally, enable the workflow under the sidebar menu called "Run main.py" by clicking the "Enable workflow" button.
 
-8. Please note that the song you like on Spotify won't be instantly added to the monthly playlist. The GitHub action runs at an interval of approximately 15 minutes, so there might be a slight delay before the song gets added.
+8. Please note that the song you like on Spotify won't be instantly added to the monthly playlist. The GitHub action runs at an interval of approximately 15 minutes(sometimes even longer), so there might be a slight delay before the song gets added.
 
 9. Once the setup is complete, you can continue to like songs on Spotify, and they will be automatically added to a new monthly playlist during the next execution of the GitHub action.
 
@@ -70,12 +73,14 @@ To modify the interval, locate the following line in the `.github/workflows/acti
 ```yaml
 - cron: '*/15 * * * *'
 ```
-> this runs every 15 minutes
+> this runs every 15 minutes (recommended)
 
 The `* * * * *` represents the default configuration, which executes the workflow every minute. You can change this to your desired schedule. Refer to [crontab.guru](https://crontab.guru/). It provides a simple and intuitive way to understand and create cron schedules.
 
+Important: There's a [limit](https://stackoverflow.com/questions/63192132/why-does-my-cron-configured-github-action-not-run-every-2-minutes) on how frequently you can run a cron job on GitHub Actions, The best interval is ≥ 15 minutes, it can't really do much below this amount. But again, how often do you like songs on Spotify? LOL I think it's pretty good considering it's totally free.
 
-### 💰 Is this FREE?
-Yes.
+
+### 💰 Is this FREE to use?
+100%. Yes.
 
 
