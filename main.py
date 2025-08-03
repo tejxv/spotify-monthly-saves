@@ -157,15 +157,28 @@ class MonthlyPlaylists:
         :return: True for success, False otherwise.
         """
 
-        self.playlists = None
-        try:
-            results = self.sp.current_user_playlists()
-        except Exception as e:
-            print(repr(e))
-            return False
-        if 'items' not in results:
-            return False
-        self.playlists = [Playlist(self.sp, x) for x in results['items']]
+        self.playlists = []
+        offset = 0
+        limit = 50
+        
+        while True:
+            try:
+                results = self.sp.current_user_playlists(limit=limit, offset=offset)
+            except Exception as e:
+                print(repr(e))
+                return False
+            if 'items' not in results:
+                return False
+            
+            playlists_batch = [Playlist(self.sp, x) for x in results['items']]
+            self.playlists.extend(playlists_batch)
+            
+            # If we got fewer items than the limit, we've reached the end
+            if len(results['items']) < limit:
+                break
+                
+            offset += limit
+            
         return True
 
     def __fetch_new_saved_songs(self):
