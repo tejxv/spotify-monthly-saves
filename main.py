@@ -226,6 +226,7 @@ class MonthlyPlaylists:
             if data.get('type') != 'playlist':
                 return None
             playlist = Playlist(sp=self.sp, playlist=data)
+            self.playlists.append(playlist)
             print(playlist.name, 'was created')
         return playlist
 
