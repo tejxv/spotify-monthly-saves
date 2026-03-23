@@ -68,7 +68,7 @@ class Playlist:
         :return: True for success, False otherwise.
         """
 
-        self.songs = []
+        collected = []
         offset = 0
         limit = 100
 
@@ -82,11 +82,12 @@ class Playlist:
                 return False
             if 'items' not in results:
                 return False
-            self.songs.extend(Song(x) for x in results['items'])
+            collected.extend(Song(x) for x in results['items'])
             if len(results['items']) < limit:
                 break
             offset += limit
 
+        self.songs = collected
         return True
 
 
