@@ -30,12 +30,14 @@ class Playlist:
     songs: Optional[List[Song]]
     id: str
     name: str
+    owner_id: str
     sp: Spotify
 
     def __init__(self, sp: Spotify, playlist: dict) -> None:
         self.sp = sp
         self.name = playlist['name']
         self.id = playlist['id']
+        self.owner_id = playlist.get('owner', {}).get('id', '')
         self.songs = None
 
     def add_song(self, song: Song):
@@ -66,15 +68,25 @@ class Playlist:
         :return: True for success, False otherwise.
         """
 
-        try:
-            results = self.sp.playlist_items(
-                playlist_id=self.id, additional_types=('track',))
-        except Exception as e:
-            print(repr(e))
-            return False
-        if 'items' not in results:
-            return False
-        self.songs = [Song(x) for x in results['items']]
+        self.songs = []
+        offset = 0
+        limit = 100
+
+        while True:
+            try:
+                results = self.sp.playlist_items(
+                    playlist_id=self.id, additional_types=('track',),
+                    limit=limit, offset=offset)
+            except Exception as e:
+                print(repr(e))
+                return False
+            if 'items' not in results:
+                return False
+            self.songs.extend(Song(x) for x in results['items'])
+            if len(results['items']) < limit:
+                break
+            offset += limit
+
         return True
 
 
@@ -210,12 +222,33 @@ class MonthlyPlaylists:
     def __find_playlist(self, name: str) -> Optional[Playlist]:
         """Returns a playlist matching the given name or creates one.
 
+        First checks locally fetched playlists, then searches via Spotify's
+        search API as a fallback (avoids duplicates when the playlist wasn't
+        returned by the paginated listing).
+
         :param name: The title of the playlist to search for or create.
         :return: Playlist if successful, None otherwise.
         """
 
-        playlist = next((x for x in self.playlists if x.name == name), None)
-        # If playlist does not exist attempt to create it
+        # Check locally fetched playlists first
+        playlist = next(
+            (x for x in self.playlists if x.name == name and x.owner_id == self.user_id),
+            None)
+
+        # Fallback: search via Spotify's search API
+        if playlist is None:
+            try:
+                results = self.sp.search(q=name, type='playlist', limit=50)
+                for item in results.get('playlists', {}).get('items', []):
+                    if item['name'] == name and item.get('owner', {}).get('id') == self.user_id:
+                        playlist = Playlist(sp=self.sp, playlist=item)
+                        self.playlists.append(playlist)
+                        print(f'Found existing playlist "{name}" via search')
+                        break
+            except Exception as e:
+                print(f'Search fallback failed: {repr(e)}')
+
+        # If playlist still not found, create it
         if playlist is None:
             try:
                 data = self.sp.user_playlist_create(
@@ -226,6 +259,7 @@ class MonthlyPlaylists:
             if data.get('type') != 'playlist':
                 return None
             playlist = Playlist(sp=self.sp, playlist=data)
+            self.playlists.append(playlist)
             print(playlist.name, 'was created')
         return playlist
 
